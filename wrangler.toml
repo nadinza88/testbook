@@ -1,0 +1,11 @@
+name = "neurogym-book-workshop"
+main = "server/index.js"
+compatibility_date = "2026-03-01"
+
+[vars]
+ENVIRONMENT = "production"
+DEMO_MODE = "false"
+
+[[kv_namespaces]]
+binding = "BOOK_KV"
+id = "your_cloudflare_kv_namespace_id_here"

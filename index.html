@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Книжная мастерская NeuroGym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-['Nunito',sans-serif] min-h-screen flex flex-col antialiased">
+
+    <!-- Шапка -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="location.reload()">
+            <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-extrabold text-xl shadow-md shadow-indigo-200">NG</div>
+            <div>
+                <h1 class="font-extrabold text-lg text-slate-900 tracking-tight">Книжная мастерская</h1>
+                <p class="text-xs text-indigo-600 font-semibold">NeuroGym • Истории с ИИ</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <button onclick="openLibraryModal()" class="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                📚 Мои книги
+            </button>
+            <div id="demoBadge" class="hidden px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full border border-amber-200">
+                ⚡ Деморежим активен
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="flex-1 max-w-5xl w-full mx-auto p-4 md:p-8 flex flex-col justify-center">
+
+        <!-- Секция формы создания книги -->
+        <section id="creatorView" class="bg-white rounded-3xl shadow-xl shadow-slate-100 border border-slate-100 p-6 md:p-10 transition-all duration-300">
+            <div class="max-w-2xl mx-auto text-space mb-8 text-center">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2">Создайте свою уникальную книгу</h2>
+                <p class="text-slate-500 text-sm md:text-base">Введите идею, а искусственный интеллект продумает сюжет, героев и создаст яркие иллюстрации.</p>
+            </div>
+
+            <form id="bookForm" class="space-y-6 max-w-2xl mx-auto">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">1. О чём будет ваша история? <span class="text-indigo-600">*</span></label>
+                    <textarea id="ideaInput" rows="3" required maxlength="500" placeholder="Например: Маленький робот находит на марсианской станции цветок..." class="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition text-sm resize-none"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">2. Имя главного героя</label>
+                        <input type="text" id="heroInput" placeholder="Например: Роби" class="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">3. Дополнительные пожелания</label>
+                        <input type="text" id="wishesInput" placeholder="Например: юмор, загадки, дружба" class="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Жанр</label>
+                        <select id="genreSelect" class="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm bg-white">
+                            <option value="приключение">Приключение</option>
+                            <option value="сказка">Сказка</option>
+                            <option value="юмор">Юмор</option>
+                            <option value="фантастика">Фантастика</option>
+                            <option value="детектив">Детектив</option>
+                            <option value="история о дружбе">Дружба</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Возраст читателя</label>
+                        <select id="ageSelect" class="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm bg-white">
+                            <option value="7-9">7–9 лет</option>
+                            <option value="10-12" selected>10–12 лет</option>
+                            <option value="13-14">13–14 лет</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Количество страниц</label>
+                        <select id="pagesSelect" class="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm bg-white">
+                            <option value="4">4 страницы</option>
+                            <option value="6" selected>6 страниц</option>
+                            <option value="8">8 страниц</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
+                    <button type="button" id="fillExampleBtn" class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm transition">
+                        ✨ Подставить пример
+                    </button>
+                    <button type="submit" id="submitBtn" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm shadow-lg shadow-indigo-200 transition transform active:scale-95 flex items-center justify-center gap-2">
+                        <span>Создать мою книгу</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Секция загрузки -->
+        <section id="loadingView" class="hidden bg-white rounded-3xl shadow-xl shadow-slate-100 border border-slate-100 p-12 text-center max-w-lg mx-auto w-full">
+            <div class="relative w-20 h-20 mx-auto mb-6">
+                <div class="absolute inset-0 rounded-full border-4 border-indigo-100 animate-pulse"></div>
+                <div class="absolute inset-0 rounded-full border-4 border-indigo-600 border-t-transparent animate-spin"></div>
+                <div class="absolute inset-0 flex items-center justify-center text-2xl">📖</div>
+            </div>
+            <h3 id="loadingTitle" class="text-xl font-extrabold text-slate-900 mb-2">Магия в процессе...</h3>
+            <p id="loadingDesc" class="text-slate-500 text-sm">Искусственный интеллект придумывает сюжет и рисует иллюстрации...</p>
+            <div class="w-full bg-slate-100 rounded-full h-2 mt-6 overflow-hidden">
+                <div id="progressBar" class="bg-indigo-600 h-full w-1/4 transition-all duration-500 rounded-full"></div>
+            </div>
+        </section>
+
+        <!-- Секция чтения книги -->
+        <section id="readerView" class="hidden flex flex-col items-center w-full">
+            <div class="w-full flex items-center justify-between mb-6 px-2">
+                <div>
+                    <h2 id="bookTitleDisplay" class="text-xl md:text-2xl font-extrabold text-slate-900">Название книги</h2>
+                    <p id="bookDescDisplay" class="text-xs text-slate-500">Описание книги</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="downloadPDF()" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200 shadow-sm transition flex items-center gap-1.5">
+                        📥 Скачать PDF
+                    </button>
+                    <button onclick="location.reload()" class="px-4 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs transition">
+                        ✨ Новая книга
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-2xl shadow-slate-200 border border-slate-100 w-full max-w-4xl overflow-hidden grid grid-cols-1 md:grid-cols-2 min-h-[480px] md:min-h-[540px] transition-all duration-300">
+                <div class="bg-slate-900 relative flex items-center justify-center p-6 md:p-8 overflow-hidden min-h-[300px] md:min-h-full">
+                    <div id="imageLoader" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 backdrop-blur-sm z-10">
+                        <div class="w-10 h-10 border-3 border-indigo-400 border-t-transparent rounded-full animate-spin mb-3"></div>
+                        <p class="text-xs text-indigo-200 font-semibold">Рисуем иллюстрацию...</p>
+                    </div>
+                    <img id="pageImage" src="" alt="Иллюстрация к книге" class="max-h-full max-w-full object-cover rounded-2xl shadow-lg transition-transform duration-500">
+                </div>
+
+                <div class="p-6 md:p-12 flex flex-col justify-between bg-white relative">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span id="pageCategory" class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">Глава 1</span>
+                            <span id="pageCounter" class="text-xs font-bold text-slate-400">1 из 6</span>
+                        </div>
+                        <h3 id="pageTitle" class="text-xl md:text-2xl font-extrabold text-slate-900 mb-4 font-['Lora',serif]">Заголовок</h3>
+                        <p id="pageText" class="text-slate-600 leading-relaxed text-base md:text-lg font-['Lora',serif]">Текст страницы...</p>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-6 mt-6 border-t border-slate-100">
+                        <button id="prevBtn" onclick="changePage(-1)" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition disabled:opacity-30 disabled:cursor-not-allowed">
+                            ← Назад
+                        </button>
+                        <button id="nextBtn" onclick="changePage(1)" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-100 transition flex items-center gap-1">
+                            <span>Вперёд</span>
+                            <span>→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Модальное окно библиотеки книг -->
+    <div id="libraryModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 max-h-[80vh] flex flex-col">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-extrabold text-slate-900">📚 Библиотека созданных книг</h3>
+                <button onclick="closeLibraryModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 font-bold">✕</button>
+            </div>
+            <div id="libraryList" class="flex-1 overflow-y-auto space-y-3 pr-1">
+                <p class="text-sm text-slate-400 text-center py-8">Загрузка списка книг...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-6 text-xs text-slate-400">
+        Книжная мастерская NeuroGym • Безопасная творческая среда для детей 7–14 лет
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
