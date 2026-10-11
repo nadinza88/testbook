@@ -13,5 +13,8 @@
     "cors": "^2.8.5",
     "node-fetch": "^3.3.2",
     "better-sqlite3": "^9.4.3"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
