@@ -1,0 +1,4 @@
+# Скопируйте в .dev.vars для локального запуска. Не публикуйте реальные ключи.
+OPENAI_API_KEY=
+IMAGE_API_KEY=
+DEMO_MODE=true

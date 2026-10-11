@@ -1,11 +1,21 @@
-name = "neurogym-book-workshop"
-main = "server/index.js"
-compatibility_date = "2026-03-01"
+name = "testbook"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
 
 [vars]
 ENVIRONMENT = "production"
 DEMO_MODE = "false"
 
-[[kv_namespaces]]
-binding = "BOOK_KV"
-id = "your_cloudflare_kv_namespace_id_here"
+# IMPORTANT:
+# Create a KV namespace named BOOK_KV in Cloudflare, then either:
+# 1) add the binding in Workers & Pages > testbook > Settings > Bindings, or
+# 2) uncomment the block below and replace the ID with your real KV namespace ID.
+#
+# [[kv_namespaces]]
+# binding = "BOOK_KV"
+# id = "PASTE_REAL_KV_NAMESPACE_ID_HERE"
